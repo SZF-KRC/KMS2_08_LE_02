@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="55dad148-d179-48a6-b6a6-c71b82c984d0" name="Changes" comment="" />
+    <list default="true" id="55dad148-d179-48a6-b6a6-c71b82c984d0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/manager/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/control/InputControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/database/DatabaseConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/interfaces/IBicycle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/management/BicycleManagement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/management/CustomerManagement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/management/EmployeeManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/management/ReservationManagement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/menu/Menu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/model/Bicycle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/model/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/model/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/model/MountainBike.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/model/Reservation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/manager/service/RentalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -14,7 +42,9 @@
   "associatedIndex": 0
 }]]></component>
   <component name="ProjectId" id="2jHDWb55uJKiQQawo0yoFik8Pjm" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -22,7 +52,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
