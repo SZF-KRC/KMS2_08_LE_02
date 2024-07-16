@@ -3,9 +3,10 @@ package manager.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class RentalService<T> {
-    private List<T> items;
+    private final List<T> items;
 
     public RentalService(){
         items = new ArrayList<>();
@@ -28,5 +29,12 @@ public class RentalService<T> {
 
     public void loadItems(List<T> loadedItems) {
         items.addAll(loadedItems);
+    }
+
+    public T find(Predicate<T> predicate) {
+        return items.stream()
+                .filter(predicate)
+                .findFirst()
+                .orElse(null);
     }
 }

@@ -6,13 +6,15 @@ public class Reservation {
     private String reservationId;
     private Customer customer;
     private Bicycle bicycle;
+    private Employee employee;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public Reservation(String reservationId, Customer customer, Bicycle bicycle, LocalDate startDate, LocalDate endDate) {
+    public Reservation(String reservationId, Customer customer, Bicycle bicycle,Employee employee, LocalDate startDate, LocalDate endDate) {
         this.reservationId = reservationId;
         this.customer = customer;
         this.bicycle = bicycle;
+        this.employee = employee;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -29,6 +31,10 @@ public class Reservation {
         return bicycle;
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -43,6 +49,7 @@ public class Reservation {
                 "reservationId='" + reservationId + '\'' +
                 ", customer=" + customer +
                 ", bicycle=" + bicycle +
+                ", employee=" + employee +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 '}';

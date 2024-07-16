@@ -4,13 +4,12 @@ import manager.control.InputControl;
 import manager.database.EmployeeData;
 import manager.model.Employee;
 import manager.service.RentalService;
-
 import java.util.List;
 
 public class EmployeeManager {
-    private InputControl control;
-    private RentalService<Employee> employeeService;
-    private EmployeeData employeeData;
+    private final InputControl control;
+    private final RentalService<Employee> employeeService;
+    private final EmployeeData employeeData;
 
     public EmployeeManager(InputControl control, RentalService<Employee> employeeService) {
         this.control = control;
@@ -18,11 +17,6 @@ public class EmployeeManager {
         this.employeeData = new EmployeeData();
     }
 
-    /*public Employee addEmployee() {
-        Employee employee = new Employee(control.generateUniqueID(), control.stringEntry("Enter new name: "), control.doubleEntry("Enter salary: "));
-        employeeData.addEmployee(employee);
-        return employee;
-    }*/
     public Employee addEmployee() {
         String name = control.stringEntry("Enter new name: ");
         double salary = control.doubleEntry("Enter salary: ");

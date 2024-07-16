@@ -22,7 +22,7 @@ public class Menu {
     CustomerManagement customManage = new CustomerManagement(control,customerService);
     EmployeeManager employeeManager = new EmployeeManager(control,employeeService);
     BicycleManagement bicycleManagement = new BicycleManagement(control,bicycleService);
-    ReservationManagement reservationManagement = new ReservationManagement(control,reservationService,customerService,bicycleService);
+    ReservationManagement reservationManagement = new ReservationManagement(control, reservationService, customerService, bicycleService, employeeService);
 
     public Menu(){
         customManage.loadData();
@@ -94,12 +94,14 @@ public class Menu {
             System.out.println("1. Add New Bicycle");
             System.out.println("2. Delete Bicycle");
             System.out.println("3. List All Bicycles");
+            System.out.println("4. Perform Maintenance");
             switch (control.intEntry("Enter index of your choice: ")){
                 case 0:exit = true;break;
                 case 1:bicycleService.addItem(bicycleManagement.addBicycle());break;
                 case 2:bicycleService.removeItem(bicycleManagement.deleteBicycle()); break;
                 case 3:bicycleService.forEachItem(bicycle -> System.out.println("Bicycle ID: " + bicycle.getId() + ", Model: " + bicycle.getModel() ));break;
-                default:printDefaultAnswer(3);
+                case 4:bicycleManagement.performMaintenance();
+                default:printDefaultAnswer(4);
             }
         }
     }
@@ -137,6 +139,7 @@ public class Menu {
                                             + "\tBicycle: " + reservation.getBicycle().getModel()
                                             + "\tStart Date: " + reservation.getStartDate().toString()
                                             + "\tEnd Date: " + reservation.getEndDate().toString()
+                                            + "\tEmployee made Reservation: " + reservation.getEmployee().getName()
                             );
                         }
                     });

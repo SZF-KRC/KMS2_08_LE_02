@@ -1,9 +1,9 @@
 package manager.model;
 
 public class Customer {
-    private String id;
-    private String name;
-    private String contact;
+    private final String id;
+    private final String name;
+    private final String contact;
 
     public Customer(String id, String name, String contact){
         this.id = id;

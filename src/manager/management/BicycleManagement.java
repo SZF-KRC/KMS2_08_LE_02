@@ -5,7 +5,6 @@ import manager.database.BicycleData;
 import manager.model.Bicycle;
 import manager.model.MountainBike;
 import manager.service.RentalService;
-
 import java.util.List;
 
 public class BicycleManagement {
@@ -46,6 +45,21 @@ public class BicycleManagement {
         }
 
         return bicycle;
+    }
+
+    public void performMaintenance() {
+        String bicycleId = control.textEntry("Enter Bicycle ID to perform maintenance: ");
+        Bicycle bicycle = bicycleService.getItems().stream()
+                .filter(b -> b.getId().equals(bicycleId))
+                .findFirst()
+                .orElse(null);
+
+        if (bicycle != null ) {
+            bicycle.performMaintenance();
+            bicycleData.updateBicycleRentStatus(bicycle.getId(), false);
+        } else {
+            System.out.println("Bicycle with ID " + bicycleId + " not found or not a MountainBike.");
+        }
     }
 
     public void loadData(){

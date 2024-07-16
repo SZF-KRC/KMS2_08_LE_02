@@ -4,13 +4,12 @@ import manager.control.InputControl;
 import manager.database.CustomerData;
 import manager.model.Customer;
 import manager.service.RentalService;
-
 import java.util.List;
 
 public class CustomerManagement {
-    private InputControl control;
-    private RentalService<Customer> customerService;
-    private CustomerData customerData;
+    private final InputControl control;
+    private final RentalService<Customer> customerService;
+    private final CustomerData customerData;
 
 
     public CustomerManagement(InputControl control, RentalService<Customer> customerService){

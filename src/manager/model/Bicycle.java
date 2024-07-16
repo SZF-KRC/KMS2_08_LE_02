@@ -17,7 +17,6 @@ public abstract class Bicycle implements IBicycle {
     public void rent(){
         if (!isRented){
             isRented = true;
-            System.out.println("Bicycle " + id + " rented.");
         }else {
             System.out.println("Bicycle " + id + " is already rented.");
         }

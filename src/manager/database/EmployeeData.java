@@ -42,6 +42,29 @@ public class EmployeeData {
         return employees;
     }
 
+    public Employee getEmployeeById(String employeeId) {
+        Employee employee = null;
+        String query = "SELECT * FROM employees WHERE id = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, employeeId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String name = resultSet.getString("name");
+                double salary = resultSet.getDouble("salary");
+                employee = new Employee(id, name, salary);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return employee;
+    }
+
     public void deleteEmployee(String employeeId) {
         try (Connection connection = DatabaseConnection.getConnection()){
             String query = "DELETE FROM employees WHERE id = ?";

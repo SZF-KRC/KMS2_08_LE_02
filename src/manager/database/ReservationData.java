@@ -2,6 +2,7 @@ package manager.database;
 
 import manager.model.Bicycle;
 import manager.model.Customer;
+import manager.model.Employee;
 import manager.model.Reservation;
 
 import java.sql.*;
@@ -12,21 +13,24 @@ import java.util.List;
 public class ReservationData {
     private final CustomerData customerData;
     private final BicycleData bicycleData;
+    private final EmployeeData employeeData;
 
     public ReservationData(){
         this.customerData = new CustomerData();
         this.bicycleData = new BicycleData();
+        this.employeeData = new EmployeeData();
     }
 
     public void addReservation(Reservation reservation){
         try (Connection connection = DatabaseConnection.getConnection()){
-            String query = "INSERT INTO reservations (id,customer_id,bicycle_id,start_date,end_date) VALUES (?,?,?,?,?)";
+            String query = "INSERT INTO reservations (id,customer_id,bicycle_id,employee_id,start_date,end_date) VALUES (?,?,?,?,?,?)";
             try (PreparedStatement statement = connection.prepareStatement(query)){
-                statement.setString(1,reservation.getReservationId());
-                statement.setString(2,reservation.getCustomer().getId());
-                statement.setString(3,reservation.getBicycle().getId());
-                statement.setDate(4,Date.valueOf(reservation.getStartDate()));
-                statement.setDate(5, Date.valueOf(reservation.getEndDate()));
+                statement.setString(1, reservation.getReservationId());
+                statement.setString(2, reservation.getCustomer().getId());
+                statement.setString(3, reservation.getBicycle().getId());
+                statement.setString(4, reservation.getEmployee().getId()); // pridanie ID zamestnanca
+                statement.setDate(5, Date.valueOf(reservation.getStartDate()));
+                statement.setDate(6, Date.valueOf(reservation.getEndDate()));
                 statement.executeUpdate();
             }
         }catch (SQLException e){
@@ -46,13 +50,15 @@ public class ReservationData {
                 String reservationId = resultSet.getString("id");
                 String customerId = resultSet.getString("customer_id");
                 String bicycleId = resultSet.getString("bicycle_id");
+                String employeeId = resultSet.getString("employee_id"); // načítanie ID zamestnanca
                 LocalDate startDate = resultSet.getDate("start_date").toLocalDate();
                 LocalDate endDate = resultSet.getDate("end_date").toLocalDate();
 
                 Customer customer = customerData.getCustomerById(customerId);
                 Bicycle bicycle = bicycleData.getBicycleById(bicycleId);
+                Employee employee = employeeData.getEmployeeById(employeeId); // načítanie zamestnanca
 
-                reservations.add(new Reservation(reservationId,customer,bicycle,startDate,endDate));
+                reservations.add(new Reservation(reservationId, customer, bicycle, employee, startDate, endDate));
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -80,6 +86,13 @@ public class ReservationData {
                     deleteStatement.setString(1, reservationId);
                     deleteStatement.executeUpdate();
                 }
+            }
+
+            // Update the bicycle rent status
+            String updateBicycleQuery = "UPDATE bicycles SET is_rented = false WHERE id = ?";
+            try (PreparedStatement updateStatement = connection.prepareStatement(updateBicycleQuery)) {
+                updateStatement.setString(1, bicycleId);
+                updateStatement.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();

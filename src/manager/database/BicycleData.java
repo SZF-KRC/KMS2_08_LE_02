@@ -35,11 +35,13 @@ public class BicycleData {
                 String id = resultSet.getString("id");
                 String model = resultSet.getString("model");
                 boolean isRented = resultSet.getBoolean("is_rented");
-                Bicycle bicycle = new MountainBike(id, model);
+                boolean needsMaintenance = resultSet.getBoolean("needs_maintenance");
+                MountainBike bicycle = new MountainBike(id, model);
                 if (isRented) {
                     bicycle.rent();
                 }
                 bicycles.add(bicycle);
+                bicycle.setNeedsMaintenance(needsMaintenance);
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -61,10 +63,14 @@ public class BicycleData {
                 String id = resultSet.getString("id");
                 String model = resultSet.getString("model");
                 boolean isRented = resultSet.getBoolean("is_rented");
-                bicycle = new MountainBike(id, model);
+                boolean needsMaintenance = resultSet.getBoolean("needs_maintenance");
+                MountainBike mountainBike = new MountainBike(id, model);
                 if (isRented) {
-                    bicycle.rent();
+                    mountainBike.rent();
                 }
+                mountainBike.setNeedsMaintenance(needsMaintenance);
+                bicycle = mountainBike;
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,6 +106,19 @@ public class BicycleData {
                 statement.executeUpdate();
             }
         }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateBicycleMaintenanceStatus(String bicycleId,boolean needMaintenance){
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String query = "UPDATE bicycles SET needs_maintenance = ? WHERE id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setBoolean(1, needMaintenance);
+                statement.setString(2, bicycleId);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
