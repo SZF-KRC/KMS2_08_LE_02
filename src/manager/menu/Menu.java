@@ -24,6 +24,13 @@ public class Menu {
     BicycleManagement bicycleManagement = new BicycleManagement(control,bicycleService);
     ReservationManagement reservationManagement = new ReservationManagement(control,reservationService,customerService,bicycleService);
 
+    public Menu(){
+        customManage.loadData();
+        employeeManager.loadData();
+        bicycleManagement.loadData();
+        reservationManagement.loadData();
+    }
+
     public  void mainMenu(){
         boolean exit = false;
         while (!exit){
@@ -37,8 +44,8 @@ public class Menu {
                 case 0:exit = true;break;
                 case 1:customerManager();break;
                 case 2:employeeManager(); break;
-                case 3:break;
-                case 4:;break;
+                case 3:bicycleManager();break;
+                case 4:reservationManager();break;
                 default: printDefaultAnswer(4);break;
             }
         }
@@ -56,7 +63,7 @@ public class Menu {
                 case 1:customerService.addItem(customManage.addCustomer());break;
                 case 2:customerService.removeItem(customManage.deleteCustomer()); break;
                 case 3:customerService.forEachItem(customer -> System.out.println("Customer ID: " + customer.getId() + ", Name: " + customer.getName() + ", Phone: " + customer.getContact()));break;
-                default:printDefaultAnswer(4);
+                default:printDefaultAnswer(3);
             }
         }
     }
@@ -74,7 +81,7 @@ public class Menu {
                 case 1:employeeService.addItem(employeeManager.addEmployee());break;
                 case 2:employeeService.removeItem(employeeManager.deleteEmployee()); break;
                 case 3:employeeService.forEachItem(employee -> System.out.println("Customer ID: " + employee.getId() + ", Name: " + employee.getName() + ", Salary: " + employee.getSalary()));break;
-                default:printDefaultAnswer(4);
+                default:printDefaultAnswer(3);
             }
         }
     }
@@ -92,28 +99,54 @@ public class Menu {
                 case 1:bicycleService.addItem(bicycleManagement.addBicycle());break;
                 case 2:bicycleService.removeItem(bicycleManagement.deleteBicycle()); break;
                 case 3:bicycleService.forEachItem(bicycle -> System.out.println("Bicycle ID: " + bicycle.getId() + ", Model: " + bicycle.getModel() ));break;
-                default:printDefaultAnswer(4);
+                default:printDefaultAnswer(3);
             }
         }
     }
 
-    private void reservationManager(){
+    private void reservationManager() {
         boolean exit = false;
-        while (!exit){
+        while (!exit) {
             System.out.println("\n*** Personnel Records ***");
             System.out.println("0. Back To Main Menu");
             System.out.println("1. Add New Reservation");
             System.out.println("2. Delete Reservation");
             System.out.println("3. List All Reservations");
-            switch (control.intEntry("Enter index of your choice: ")){
-                case 0:exit = true;break;
-                case 1:reservationService.addItem(reservationManagement.addReservation());break;
-                case 2:reservationService.removeItem(reservationManagement.deleteReservation()); break;
-                case 3:reservationService.forEachItem(reservation -> System.out.println(reservation.toString()));break;
-                default:printDefaultAnswer(4);
+            switch (control.intEntry("Enter index of your choice: ")) {
+                case 0:
+                    exit = true;
+                    break;
+                case 1:
+                    Reservation newReservation = reservationManagement.addReservation();
+                    if (newReservation != null) {
+                        reservationService.addItem(newReservation);
+                    }
+                    break;
+                case 2:
+                    Reservation deleteReservation = reservationManagement.deleteReservation();
+                    if (deleteReservation != null) {
+                        reservationService.removeItem(deleteReservation);
+                    }
+                    break;
+                case 3:
+                    reservationService.forEachItem(reservation -> {
+                        if (reservation != null) {
+                            System.out.println(
+                                    "Reservation ID: " + reservation.getReservationId()
+                                            + "\tCustomer: " + reservation.getCustomer().getName()
+                                            + "\tBicycle: " + reservation.getBicycle().getModel()
+                                            + "\tStart Date: " + reservation.getStartDate().toString()
+                                            + "\tEnd Date: " + reservation.getEndDate().toString()
+                            );
+                        }
+                    });
+                    break;
+                default:
+                    printDefaultAnswer(3);
             }
         }
     }
+
 
 
     private void printDefaultAnswer(int number){

@@ -25,4 +25,8 @@ public class RentalService<T> {
     public void forEachItem(Consumer<T> action) {
         items.forEach(action);
     }
+
+    public void loadItems(List<T> loadedItems) {
+        items.addAll(loadedItems);
+    }
 }
